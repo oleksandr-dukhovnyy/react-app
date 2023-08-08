@@ -4,4 +4,4 @@ Simple notes app
 
 ## Demo
 
-[demo](https://react-app-c4403.web.app/);
+[demo](https://react-app-c4403.web.app/)
