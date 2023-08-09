@@ -11,12 +11,10 @@ function App() {
     {
       title: 'Home',
       url: '/',
-      element: <Home />,
     },
     {
       title: 'About',
       url: '/about',
-      element: <About />,
     },
   ];
 
