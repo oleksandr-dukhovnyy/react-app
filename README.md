@@ -1,7 +1,3 @@
-# Getting Started with Create React App
-
-Simple notes app
-
-## Demo
+# Simple notes app
 
 [demo](https://react-app-c4403.web.app/)
