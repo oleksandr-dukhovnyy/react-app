@@ -34,7 +34,7 @@ export const PointPicker = ({ hide, picked }) => {
       onClick={onBackgroundClicked}
     >
       <MapContainer
-        style={{ width: '70%', height: '500px', borderRadius: '15px' }}
+        style={{ width: '90vw', height: '80vh', borderRadius: '15px' }}
         center={position}
         zoom={6}
       >
