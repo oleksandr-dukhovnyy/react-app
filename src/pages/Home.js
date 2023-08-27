@@ -9,11 +9,13 @@ export const Home = () => {
     useContext(FirebaseContext);
 
   useEffect(() => {
-    fetchNotes().catch((err) => {
-      alert('Something went wrong...');
+    if (notes.length === 0) {
+      fetchNotes().catch((err) => {
+        alert('Something went wrong...');
 
-      console.log('Home.useEffect.fetchNotes error', err);
-    });
+        console.log('Home.useEffect.fetchNotes error', err);
+      });
+    }
 
     // eslint-disable-next-line
   }, []);
