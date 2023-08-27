@@ -37,7 +37,12 @@ export const Home = () => {
   return (
     <div>
       <Form />
-      <div className="mt-3 mb-3 text-center">
+      <div
+        className="mb-3 text-center"
+        style={{
+          marginTop: '2rem',
+        }}
+      >
         {loading ? (
           <Loader />
         ) : (

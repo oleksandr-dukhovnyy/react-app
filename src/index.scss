@@ -1,6 +1,7 @@
 // @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~animate.css/animate.min.css';
+@import 'adaptive-scss';
 
 body {
   margin: 0;
@@ -33,9 +34,95 @@ button.close {
 .note-item {
   word-break: break-word;
   gap: 10px;
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  grid-template-columns: 1fr 85px 30px;
+  grid-template-areas:
+    'title location location'
+    'period created-at created-at'
+    'notes notes remove';
+
+  &--line {
+    height: 1px;
+    padding: 0;
+    border-bottom: 1px solid black;
+  }
+
+  &.header {
+    display: none;
+    color: rgb(13, 110, 253);
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid black;
+
+    > * {
+      margin-left: 20px;
+    }
+  }
+
+  &__period {
+    grid-area: period;
+    margin: 0 0 auto;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: left;
+
+    @include _media-up(xl) {
+      margin: auto 0;
+    }
+  }
+
+  &__notes {
+    grid-area: notes;
+    font-size: 14px;
+    color: rgb(13, 110, 253);
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: auto;
+    margin: 0 0 auto;
+
+    @include _media-up(xl) {
+      margin: auto 0;
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    > span {
+      color: rgb(13, 110, 253);
+    }
+  }
+
+  &__location {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    grid-area: location;
+    margin-right: auto;
+  }
+
+  @include _media-up(xl) {
+    // grid-template-columns: 1fr 497px 162px 143px 30px;
+    grid-template-columns: 1fr 220px 287px 162px 143px 30px;
+    grid-template-areas: 'title period notes location created-at remove';
+
+    &.header {
+      display: grid;
+    }
+
+    &--line {
+      display: none;
+    }
+  }
 
   strong {
     text-align: left;
@@ -43,24 +130,41 @@ button.close {
     flex: 1;
   }
 
-  > div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: auto;
-  }
-
   button {
     width: 30px;
     height: 30px;
   }
 
-  @media screen and (max-width: 764px) {
-    flex-direction: column-reverse;
+  small {
+    margin: 0 0 auto;
+    text-align: right;
 
-    > div {
-      margin-left: auto;
+    @include _media-up(xl) {
+      margin: auto 0;
+      text-align: left;
     }
+  }
+
+  &__remove {
+    width: 20px;
+    height: 20px;
+    grid-area: remove;
+    margin: auto;
+    margin-right: -4px;
+    margin-bottom: -3px;
+
+    @include _media-up(xl) {
+      margin-right: auto;
+      margin-bottom: auto;
+    }
+  }
+}
+
+.notes-input {
+  border-color: #000;
+
+  &::placeholder {
+    font-size: 12px;
   }
 }
 

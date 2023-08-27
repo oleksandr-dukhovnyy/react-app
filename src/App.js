@@ -24,7 +24,12 @@ function App() {
         <BrowserRouter>
           <Navbar navs={navs} />
           <Alert text="text" />
-          <div className="container pt4 mt-4">
+          <div
+            className="container pt4"
+            style={{
+              marginTop: '6rem',
+            }}
+          >
             <Routes>
               <Route path="/" element={<Home />} exact />
               <Route path="/about" element={<About />} />
