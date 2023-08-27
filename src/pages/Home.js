@@ -1,12 +1,18 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form } from '../components/Form';
 import { Notes } from '../components/Notes';
 import { FirebaseContext } from '../Context/Firebase/firebaseContext';
 import { Loader } from '../components/Loader';
+import { ShowAtMap } from '../components/ShowAtMap';
 
 export const Home = () => {
+  const [showPosition, setShowPosition] = useState(null);
   const { loading, notes, fetchNotes, removeNote } =
     useContext(FirebaseContext);
+
+  const hide = () => {
+    setShowPosition(null);
+  };
 
   useEffect(() => {
     if (notes.length === 0) {
@@ -35,9 +41,14 @@ export const Home = () => {
         {loading ? (
           <Loader />
         ) : (
-          <Notes notes={notes} removeItem={removeNotesItem} />
+          <Notes
+            notes={notes}
+            removeItem={removeNotesItem}
+            showAtMap={setShowPosition}
+          />
         )}
       </div>
+      {showPosition && <ShowAtMap marker={showPosition} hide={hide} />}
     </div>
   );
 };

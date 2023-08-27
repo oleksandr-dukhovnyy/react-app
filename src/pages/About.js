@@ -4,9 +4,16 @@ export const About = () => (
     style={{ backgroundColor: '#eee', padding: '2rem', borderRadius: '15px' }}
   >
     <div className="container">
-      <h1 className="display-4">Best React app</h1>
       <p className="lead">
-        App version: <strong>1.0.42</strong>
+        <p>
+          App version: <strong>1.0.42</strong>
+        </p>
+        <p>
+          Maps:{' '}
+          <a href="https://leafletjs.com/" target="_blank" rel="noreferrer">
+            leafletjs
+          </a>
+        </p>
       </p>
     </div>
   </div>

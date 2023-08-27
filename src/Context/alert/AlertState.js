@@ -22,8 +22,15 @@ export const AlertState = ({ children }) => {
     });
   };
 
+  const warning = (text) => show(text, 'warning');
+  const success = (text) => show(text, 'success');
+  const info = (text) => show(text, 'info');
+  const danger = (text) => show(text, 'danger');
+
   return (
-    <AlertContext.Provider value={{ show, hide, alert: state }}>
+    <AlertContext.Provider
+      value={{ show, success, warning, info, danger, hide, alert: state }}
+    >
       {children}
     </AlertContext.Provider>
   );

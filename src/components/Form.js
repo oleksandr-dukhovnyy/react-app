@@ -1,43 +1,99 @@
 import { useState, useContext } from 'react';
 import { AlertContext } from '../Context/alert/alertContext.js';
 import { FirebaseContext } from '../Context/Firebase/firebaseContext.js';
+import { PointPicker } from './PointPicker.js';
 
 export const Form = () => {
   const [value, setValue] = useState('');
+  const [picked, setPicked] = useState(null);
+  const [showPointerPicker, setShowPointerPicker] = useState(false);
   const alert = useContext(AlertContext);
   const { addNote } = useContext(FirebaseContext);
 
-  const submitHandler = async (e) => {
+  const createNote = async (e) => {
     e.preventDefault();
 
     if (value.trim()) {
-      addNote(value.trim())
+      addNote(value.trim(), picked)
         .then(() => {
-          alert.show('Note created successfully!', 'success');
+          alert.success('Note created successfully!');
           setValue('');
+          setPicked(null);
         })
         .catch(() => {
-          alert.show('Something went wrong...', 'danger');
+          alert.danger('Something went wrong...');
         });
     } else {
-      alert.show('Enter note text!', 'warning');
+      alert.warning('Enter note text!');
     }
   };
 
+  const onPicked = (point) => {
+    setShowPointerPicker(false);
+    setPicked(point);
+  };
+
   return (
-    <form onSubmit={submitHandler}>
+    <div>
       <div className="form-group d-flex" style={{ gap: '0.5rem' }}>
         <input
           type="text"
           className="form-control"
-          placeholder="Type note here..."
+          placeholder="Type location here..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary">
+
+        {picked ? (
+          <div
+            style={{
+              width: '200px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={setShowPointerPicker.bind(null, true)}
+          >
+            <svg
+              style={{
+                width: '20px',
+                height: '20px',
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 20.8995L16.9497 15.9497C19.6834 13.2161 19.6834 8.78392 16.9497 6.05025C14.2161 3.31658 9.78392 3.31658 7.05025 6.05025C4.31658 8.78392 4.31658 13.2161 7.05025 15.9497L12 20.8995ZM12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364L12 23.7279ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13ZM12 15C9.79086 15 8 13.2091 8 11C8 8.79086 9.79086 7 12 7C14.2091 7 16 8.79086 16 11C16 13.2091 14.2091 15 12 15Z"></path>
+            </svg>
+            <span>
+              {picked.lat.toFixed(3)}, {picked.lng.toFixed(3)}
+            </span>
+          </div>
+        ) : (
+          value && (
+            <button
+              className="btn btn-primary"
+              style={{
+                width: '300px',
+              }}
+              onClick={setShowPointerPicker.bind(null, true)}
+            >
+              Add a point on the map
+            </button>
+          )
+        )}
+
+        <button onClick={createNote} type="submit" className="btn btn-success">
           Create
         </button>
       </div>
-    </form>
+      {showPointerPicker && (
+        <PointPicker
+          picked={onPicked}
+          hide={setShowPointerPicker.bind(null, false)}
+        />
+      )}
+    </div>
   );
 };

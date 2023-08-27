@@ -40,8 +40,8 @@ export const FirebaseState = ({ children }) => {
       })
     );
 
-  const addNote = async (title) => {
-    const note = { title, date: new Date().toISOString() };
+  const addNote = async (title, position) => {
+    const note = { title, position, date: new Date().toISOString() };
 
     const res = await axios.post(`${apiUrl}/notes.json`, note);
 
