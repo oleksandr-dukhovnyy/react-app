@@ -18,6 +18,15 @@ function App() {
     },
   ];
 
+  /*
+
+    Default list:
+    - London
+    - Paris
+    - Tokyo
+    - Kyiv
+  */
+
   return (
     <FirebaseState>
       <AlertState>
